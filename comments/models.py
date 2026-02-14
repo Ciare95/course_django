@@ -8,4 +8,4 @@ class Comment(models.Model):
     element = models.ForeignKey(Element, related_name='comments', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return 'Comentario #{}'.format(self.id)
+        return self.text
