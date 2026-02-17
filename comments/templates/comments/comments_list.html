@@ -9,7 +9,11 @@
     <h1>Comments List</h1>
         <ul>
             {% for comment in comments_list %}
-            <li>{{ comment }}</li>
+            <li>{{ comment }}
+                <a href="{% url 'comments:get_only_comment' comment.id %}">Detalles</a>
+                <a href="{% url 'comments:update_comment' comment.id %}">Actualizar</a>
+                <a href="{% url 'comments:delete_comment' comment.id %}">Eliminar</a>
+            </li>
             {% endfor %}
         </ul>
 </body>
