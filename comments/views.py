@@ -3,13 +3,15 @@ from comments.models import Comment
 
 from comments.forms import CommentForm
 
+COMMENTS_LIST_ROUTE = 'comments:comments_list'
+
 
 def add(request):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('comments:comments_list')
+            return redirect(COMMENTS_LIST_ROUTE)
     else:
         form = CommentForm()
 
@@ -43,7 +45,7 @@ def update_comment(request, id):
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return redirect('comments:comments_list')
+            return redirect(COMMENTS_LIST_ROUTE)
     else:
         form = CommentForm(instance=comment)
         return render(
@@ -57,7 +59,7 @@ def delete_comment(request, id):
     comment = Comment.objects.filter(id=id)
     comment.delete()
 
-    return redirect('comments:comments_list')
+    return redirect(COMMENTS_LIST_ROUTE)
 
 
 
