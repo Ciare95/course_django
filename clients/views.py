@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from clients.models import Client
 from clients.form import FormClient
 
+APP_REDIRECT = 'clients:clients_list'
 
 def add_client(request):
 
@@ -9,7 +10,7 @@ def add_client(request):
         client = FormClient(request.POST)
         if client.is_valid():
             client.save()
-            return redirect('clients:clients_list')
+            return redirect(APP_REDIRECT)
     else:
         client = FormClient()
         return render(
@@ -36,7 +37,7 @@ def update_client(request, id):
         client = FormClient(request.POST, instance=client)
         if client.is_valid():
             client.save()
-            return redirect('clients:clients_list')
+            return redirect(APP_REDIRECT)
     else:
         client = FormClient(instance=client)
         return render(
@@ -49,5 +50,5 @@ def delete_client(request, id):
 
     client = get_object_or_404(Client, id=id)
     client.delete()
-    return redirect('clients:clients_list')
+    return redirect(APP_REDIRECT)
 

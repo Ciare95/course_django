@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from comments.models import Comment
 
@@ -19,12 +20,16 @@ def add(request):
 
 def show_list(request):
 
+    comment_list = Comment.objects.all()
+    paginator = Paginator(comment_list, 2)
+    page_number = request.GET.get('page')
+    comments_page = paginator.get_page(page_number)
+
     if request.method == 'GET':
-        comments = Comment.objects.all()
         return render(
             request,
             'comments/comments_list.html',
-            {'comments_list': comments}
+            {'comments_list': comments_page}
         )
 
 def get_only_comment(request, id):

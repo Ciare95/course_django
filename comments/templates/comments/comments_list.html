@@ -16,5 +16,19 @@
             </li>
             {% endfor %}
         </ul>
+
+        <div>
+            {% if comments_list.has_previous %}
+                <a href="?page=1">Primera</a>
+                <a href="?page={{ comments_list.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span>Página {{ comments_list.number }} de {{ comments_list.paginator.num_pages }}</span>
+
+            {% if comments_list.has_next %}
+                <a href="?page={{ comments_list.next_page_number }}">Siguiente</a>
+                <a href="?page={{ comments_list.paginator.num_pages }}">Última</a>
+            {% endif %}
+        </div>
 </body>
 </html>
